@@ -1,0 +1,12 @@
+{
+  "name": "layers",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "update-all": "npm run install-utilities",
+    "install-utilities": "cd utilities/nodejs/node_modules/utilities && npm i && tsc && cd ../../../"
+  },
+  "author": "Sandun isuru Niraj",
+  "license": "ISC"
+}

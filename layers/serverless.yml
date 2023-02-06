@@ -1,0 +1,20 @@
+service: adaderana-serverless-layers
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  region: us-east-1
+
+layers:
+  utilities:
+    path: utilities
+    name: adaderana-serverless-utilities-layer
+    description: Layer to contain utilities npm version
+
+resources:
+  Outputs:
+    UtilitiesLayerExport:
+      Value:
+        Ref: UtilitiesLambdaLayer
+      Export:
+        Name: 'UtilitiesLambdaLayer'
