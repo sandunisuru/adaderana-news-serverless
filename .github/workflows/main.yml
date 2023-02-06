@@ -24,7 +24,7 @@ jobs:
     - name: Installing Dependecies
       working-directory: ./layers/utilities/nodejs/node_modules/utilities
       run: |
-        npm ci
+        npm i
         tsc
     - name: Deploying
       working-directory: ./layers
@@ -32,7 +32,7 @@ jobs:
         serverless deploy
 
   deploy-service:
-    name: deploy Layers to AWS
+    name: deploy Service to AWS
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
@@ -51,7 +51,7 @@ jobs:
     - name: Installing Dependecies
       working-directory: ./api
       run: |
-        npm ci
+        npm i
     - name: Deploying
       working-directory: ./api
       run: |
