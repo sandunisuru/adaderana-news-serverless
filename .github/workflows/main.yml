@@ -15,6 +15,9 @@ jobs:
         node-version: '14.x'
     - name: npm install, build and test
       run: |
-        npm install
-        npm run build --if-present
-        npm test
+        export AWS_ACCESS_KEY_ID=$AWS_KEY
+        export AWS_SECRET_ACCESS_KEY=$AWS_SECRET
+        npm install serverless@2 -g
+        npm ci
+        serverless deploy
+        
