@@ -4,8 +4,8 @@ on:
     - master
     
 jobs:
-  my_job:
-    name: deploy to AWS
+  deploy-layers:
+    name: deploy Layers to AWS
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
@@ -13,11 +13,47 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: '14.x'
-    - name: npm install, build and test
+    - name: Setting AWS Credentials
       run: |
         export AWS_ACCESS_KEY_ID=$AWS_KEY
         export AWS_SECRET_ACCESS_KEY=$AWS_SECRET
-        npm install serverless@2 -g
+    - name: Installing Serverless@2
+      run: npm install serverless@2 -g
+    - name: Installing Typescript
+      run: npm install typescript -g
+    - name: Installing Dependecies
+      working-directory: ./layers/utilities/nodejs/node_modules/utilities
+      run: |
         npm ci
+        tsc
+    - name: Deploying
+      working-directory: ./layers
+      run: |
+        serverless deploy
+
+  deploy-service:
+    name: deploy Layers to AWS
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Use Node.js 14.x
+      uses: actions/setup-node@v1
+      with:
+        node-version: '14.x'
+    - name: Setting AWS Credentials
+      run: |
+        export AWS_ACCESS_KEY_ID=$AWS_KEY
+        export AWS_SECRET_ACCESS_KEY=$AWS_SECRET
+    - name: Installing Serverless@2
+      run: npm install serverless@2 -g
+    - name: Installing Typescript
+      run: npm install typescript -g
+    - name: Installing Dependecies
+      working-directory: ./api
+      run: |
+        npm ci
+    - name: Deploying
+      working-directory: ./api
+      run: |
         serverless deploy
         
